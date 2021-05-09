@@ -1,6 +1,8 @@
 # weather_app
 This is a useful weather-checking application
-My API key: a346e35af7ce4bdcdff5f710fe121aff
+My API key:
+
+a346e35af7ce4bdcdff5f710fe121aff
 
 Instructions below:
 
