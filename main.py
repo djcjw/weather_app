@@ -185,6 +185,8 @@ def main():
     else:
       print(" City Not Found ") #in case a mispelled city is given
       main() #looping to beg
-
+  else:
+    print("Wrong key!")
+    main()  
 main()
 
