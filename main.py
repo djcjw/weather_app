@@ -23,170 +23,181 @@ def main():
   if user_search == "z":
     zip_code = input("Enter Zip Code: ")
 
-  # complete url address for zip lookup
-    complete_url_zip = base_url + "zip=" + str(zip_code) + "&appid=" + api_key + "&units=imperial"
-    response_c = requests.get(complete_url_zip)
+    try: #try block to test connection
 
-    # get method of requests module
-    # return response object
-    # json method of response object
-    # convert json format data into
-    # python format data
-    x = response_c.json()
+      #complete url address for zip lookup
+      complete_url_zip = base_url + "zip=" + str(zip_code) + "&appid=" + api_key + "&units=imperial"
+      response_c = requests.get(complete_url_zip)
 
-    # Now x contains list of nested dictionaries
-    # Check the value of "cod" key is equal to
-    # "404", means zip code is found, elsewise
-    # zip code is not found and user is notified
-    if x["cod"] != "404":
+      # get method of requests module
+      # return response object
+      # json method of response object
+      # convert json format data into
+      # python format data
+      x = response_c.json()
 
-      # store the value of "main" key in variable y
-      y = x["main"]
+      # Now x contains list of nested dictionaries
+      # Check the value of "cod" key is equal to
+      # "404", means zip code is found, elsewise
+      # zip code is not found and user is notified
+      if x["cod"] != "404":
 
-      # store the value corresponding
-      # to the "temp" key of y
-      current_temperature = y["temp"]
+        # store the value of "main" key in variable y
+        y = x["main"]
 
-      # store the value corresponding
-      # to the "pressure" key of y
-      current_pressure = y["pressure"]
+        # store the value corresponding
+        # to the "temp" key of y
+        current_temperature = y["temp"]
 
-      # store the value corresponding
-      # to the "humidity" key of y
-      current_humidiy = y["humidity"]
+        # store the value corresponding
+        # to the "pressure" key of y
+        current_pressure = y["pressure"]
 
-      # store the value corresponding
-      # to the "temp_min" key of y
-      low_temp = y["temp_min"]
+        # store the value corresponding
+        # to the "humidity" key of y
+        current_humidiy = y["humidity"]
 
-      # store the value corresponding
-      # to the "temp_max" key of y
-      high_temp = y["temp_max"]
+        # store the value corresponding
+        # to the "temp_min" key of y
+        low_temp = y["temp_min"]
 
-      # store the value corresponding
-      # to the "feels_like" key of y
-      feels_like = y["feels_like"]
+        # store the value corresponding
+        # to the "temp_max" key of y
+        high_temp = y["temp_max"]
 
-      # store the value of "weather"
-      # key in variable z
-      z = x["weather"]
+        # store the value corresponding
+        # to the "feels_like" key of y
+        feels_like = y["feels_like"]
 
-      # store the value corresponding
-      # to the "description" key at
-      # the 0th index of z
-      weather_description = z[0]["description"]
+        # store the value of "weather"
+        # key in variable z
+        z = x["weather"]
 
-      # print following values in easy to read format
-      print(" Temperature Forecast (Deg in Fahrenheit) = " +
-            str(current_temperature) +
-          "\n Low temp = " +
-            str(low_temp) +
-          "\n High temp = " +
-            str(high_temp) +
-          "\n Feels like = " +
-            str(feels_like) +
-          "\n Atmospheric Pressure (in hPa unit) = " +
-            str(current_pressure) +
-          "\n Humidity (in percentage) = " +
-            str(current_humidiy) +
-          "\n Description = " +
-            str(weather_description))
+        # store the value corresponding
+        # to the "description" key at
+        # the 0th index of z
+        weather_description = z[0]["description"]
 
-      print ("\nDo you want to try another location?")
-      user_again = input("Enter 'y' or any key to exit: ")
-      if user_again == 'y':
-        main()
+        # print following values in easy to read format
+        print(" Temperature Forecast (Deg in Fahrenheit) = " +
+              str(current_temperature) +
+            "\n Low temp = " +
+              str(low_temp) +
+            "\n High temp = " +
+              str(high_temp) +
+            "\n Feels like = " +
+              str(feels_like) +
+            "\n Atmospheric Pressure (in hPa unit) = " +
+              str(current_pressure) +
+            "\n Humidity (in percentage) = " +
+              str(current_humidiy) +
+            "\n Description = " +
+              str(weather_description))
+
+        print ("\nDo you want to try another location?")
+        user_again = input("Enter 'y' or any key to exit: ")
+        if user_again == 'y':
+          main()
+        else:
+          print ("\nThank you for using my weather program!")
+    
       else:
-        print ("\nThank you for using my weather program!")
-  
-    else:
-      print(" Zip Code Not Found ") #in case the user inputs bad zip
+        print(" Zip Code Not Found ") #in case the user inputs bad zip
       main() #looping to beg
+
+    #try error to inform user API key has expired
+    except KeyError:
+        print ("Bad API key")
 
   elif user_search == "c":
     city_name = input("Enter US City name: ")
 
-  # complete url address for city lookup
-    complete_url_city = base_url + "appid=" + api_key + "&q=" + city_name + "&units=imperial"
-    response_c = requests.get(complete_url_city)
+    try: #try block to test connection
 
-    # get method of requests module
-    # return response object
-    # json method of response object
-    # convert json format data into
-    # python format data
-    x = response_c.json()
+    # complete url address for city lookup
+      complete_url_city = base_url + "appid=" + api_key + "&q=" + city_name + "&units=imperial"
+      response_c = requests.get(complete_url_city)
 
-    # Now x contains list of nested dictionaries
-    # Check the value of "cod" key is equal to
-    # "404", means zip code is found otherwise,
-    # zip code is not found & user is notified
-    if x["cod"] != "404":
+      # get method of requests module
+      # return response object
+      # json method of response object
+      # convert json format data into
+      # python format data
+      x = response_c.json()
 
-      # store the value of "main" key in variable y
-      y = x["main"]
+      # Now x contains list of nested dictionaries
+      # Check the value of "cod" key is equal to
+      # "404", means zip code is found otherwise,
+      # zip code is not found & user is notified
+      if x["cod"] != "404":
 
-      # store the value corresponding
-      # to the "temp" key of y
-      current_temperature = y["temp"]
+        # store the value of "main" key in variable y
+        y = x["main"]
 
-      # store the value corresponding
-      # to the "pressure" key of y
-      current_pressure = y["pressure"]
+        # store the value corresponding
+        # to the "temp" key of y
+        current_temperature = y["temp"]
 
-      # store the value corresponding
-      # to the "humidity" key of y
-      current_humidiy = y["humidity"]
+        # store the value corresponding
+        # to the "pressure" key of y
+        current_pressure = y["pressure"]
 
-      # store the value corresponding
-      # to the "temp_min" key of y
-      low_temp = y["temp_min"]
+        # store the value corresponding
+        # to the "humidity" key of y
+        current_humidiy = y["humidity"]
 
-      # store the value corresponding
-      # to the "temp_max" key of y
-      high_temp = y["temp_max"]
+        # store the value corresponding
+        # to the "temp_min" key of y
+        low_temp = y["temp_min"]
 
-      # store the value corresponding
-      # to the "feels_like" key of y
-      feels_like = y["feels_like"]
+        # store the value corresponding
+        # to the "temp_max" key of y
+        high_temp = y["temp_max"]
 
-      # store the value of "weather"
-      # key in variable z
-      z = x["weather"]
+        # store the value corresponding
+        # to the "feels_like" key of y
+        feels_like = y["feels_like"]
 
-      # store the value corresponding
-      # to the "description" key at
-      # the 0th index of z
-      weather_description = z[0]["description"]
+        # store the value of "weather"
+        # key in variable z
+        z = x["weather"]
 
-      # print following values in easy to read format
-      print(" Temperature Forecast (Deg in Fahrenheit) = " +
-            str(current_temperature) +
-          "\n Low temp = " +
-            str(low_temp) +
-          "\n High temp = " +
-            str(high_temp) +
-          "\n Feels like = " +
-            str(feels_like) +
-          "\n Atmospheric Pressure (in hPa unit) = " +
-            str(current_pressure) +
-          "\n Humidity (in percentage) = " +
-            str(current_humidiy) +
-          "\n Description = " +
-            str(weather_description))
-    
-      print ("\nDo you want to try another location?")
-      user_again = input("Enter 'y' or any key to exit: ")
-      if user_again == 'y':
-        main() #looping to beg
+        # store the value corresponding
+        # to the "description" key at
+        # the 0th index of z
+        weather_description = z[0]["description"]
+
+        # print following values in easy to read format
+        print(" Temperature Forecast (Deg in Fahrenheit) = " +
+              str(current_temperature) +
+            "\n Low temp = " +
+              str(low_temp) +
+            "\n High temp = " +
+              str(high_temp) +
+            "\n Feels like = " +
+              str(feels_like) +
+            "\n Atmospheric Pressure (in hPa unit) = " +
+              str(current_pressure) +
+            "\n Humidity (in percentage) = " +
+              str(current_humidiy) +
+            "\n Description = " +
+              str(weather_description))
+      
+        print ("\nDo you want to try another location?")
+        user_again = input("Enter 'y' or any key to exit: ")
+        if user_again == 'y':
+          main() #looping to beg
+        else:
+          print ("\nThank you for using my weather program!")
+
       else:
-        print ("\nThank you for using my weather program!")
+        print(" City Not Found ") #in case a mispelled city is given
+        main() #looping to beg
 
-    else:
-      print(" City Not Found ") #in case a mispelled city is given
-      main() #looping to beg
+    #try error to inform user API key has expired
+    except KeyError:
+      print ("Bad API key")
   else:
     print("Wrong key!")
-    main()  
+    main()
 main()
-
