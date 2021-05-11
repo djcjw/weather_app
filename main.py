@@ -8,10 +8,11 @@ print("Welcome to my super useful weather-checking app.")
 #required stuff
 #inporting requuest module
 import requests
-# My API key
-api_key = "a346e35af7ce4bdcdff5f710fe121aff"
 # base_url variable to store url
 base_url = "http://api.openweathermap.org/data/2.5/weather?"
+# My API key
+api_key = "a346e35af7ce4bdcdff5f710fe121aff"
+
 
 #user input variables & functions
 #set the name input variable
@@ -58,7 +59,10 @@ else:
 
 # complete_url variable to store
 # complete url address
-complete_url = base_url + "appid=" + api_key + "&q=" + city_name
+complete_url = base_url + "appid=" + api_key + "&q=" + city_name + "&units=imperial"
+
+#call for weather using zip
+#api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={API key}
 
 # get method of requests module
 # return response object
@@ -101,7 +105,7 @@ if x["cod"] != "404":
 	weather_description = z[0]["description"]
 
 	# print following values
-	print(" Temperature (in kelvin unit) = " +
+	print(" Temperature (in Fahrenheit) = " +
 					str(current_temperature) +
 		"\n atmospheric pressure (in hPa unit) = " +
 					str(current_pressure) +
